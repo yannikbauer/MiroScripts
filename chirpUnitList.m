@@ -1,6 +1,7 @@
-function chirpUnitList
-%% chirpUnitList
-% The script creates a table of all chirp units that satisfy specific quality criteria
+function chirpUnitList = chirpUnitList()
+%% chirpUnitList = chirpUnitList()
+% The script creates a table of all units that satisfy specific quality criteria in their response
+% to the chirp stimulus.
 
 %% Startup datajoint
 startup_cin
@@ -22,7 +23,7 @@ chirp_keys = date_keys(mask_date);
 chirp_keys = rmfield(chirp_keys,'series_date');
 
 % Create table of units that respond satisfactorily to chirp stimulus
-units_for_chirp = fetch(miro.ChirpQuality(chirp_keys) ...
+chirpUnitList = fetch(miro.ChirpQuality(chirp_keys) ...
     & miro.ChirpQuality(sprintf('corr_p < %f',corr_p)) ...
     & miro.ChirpQuality(sprintf('berens_qi >= %f',qi)) ...
     & data.ClusterInfo(sprintf('quality <= %f',miro_qi)),...
